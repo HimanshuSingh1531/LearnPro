@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.himanshu.learnpro.ui.theme.*
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen( onAuthSuccess: () -> Unit) {
 
     // 🔁 Toggle state
     var isLogin by remember { mutableStateOf(true) }
@@ -173,8 +173,9 @@ fun LoginScreen() {
                                     password = password,
                                     onSuccess = {
                                         loading = false
-                                        successMessage = "Login Successful"
-                                    },
+                                        onAuthSuccess()
+
+                            },
                                     onError = {
                                         loading = false
                                         emailError = it
@@ -186,7 +187,7 @@ fun LoginScreen() {
                                     password = password,
                                     onSuccess = {
                                         loading = false
-                                        successMessage = "Signup Successful"
+                                        onAuthSuccess()
                                     },
                                     onError = {
                                         loading = false

@@ -15,7 +15,9 @@ import androidx.compose.ui.unit.sp
 import com.himanshu.learnpro.ui.theme.*
 
 @Composable
-fun AdminLoginScreen() {
+fun AdminLoginScreen(
+    onAdminLoginSuccess: () -> Unit   // ✅ ONLY ADDITION (DON'T REMOVE)
+) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -107,7 +109,7 @@ fun AdminLoginScreen() {
                 )
             }
 
-            // 🔘 Login as Admin Button (🔥 FIREBASE CONNECTED)
+            // 🔘 Login as Admin Button (🔥 SAME LOGIC)
             Button(
                 onClick = {
 
@@ -134,7 +136,7 @@ fun AdminLoginScreen() {
                                 onSuccess = {
                                     loading = false
                                     successMessage = "Admin Login Successful"
-                                    // 👉 Next: Admin Dashboard navigation
+                                    onAdminLoginSuccess()   // 🔥 ONLY NEW LINE
                                 },
                                 onError = { error ->
                                     loading = false

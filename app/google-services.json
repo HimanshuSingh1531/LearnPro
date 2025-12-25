@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "282023554946",
+    "project_id": "learnpro-6a386",
+    "storage_bucket": "learnpro-6a386.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282023554946:android:7e5adfcf4f3f4cafc5699b",
+        "android_client_info": {
+          "package_name": "com.himanshu.learnpro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6p56N9MdYSIF5WQ1wLxrHt96WfN5t7d4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

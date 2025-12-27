@@ -16,7 +16,7 @@ import com.himanshu.learnpro.ui.theme.*
 
 @Composable
 fun AdminLoginScreen(
-    onAdminLoginSuccess: () -> Unit   // ✅ ONLY ADDITION (DON'T REMOVE)
+    onAdminLoginSuccess: () -> Unit
 ) {
 
     var email by remember { mutableStateOf("") }

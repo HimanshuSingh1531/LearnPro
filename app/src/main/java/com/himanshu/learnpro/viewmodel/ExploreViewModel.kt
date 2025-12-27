@@ -22,7 +22,7 @@ class ExploreViewModel : ViewModel() {
 
         FirebaseFirestore.getInstance()
             .collection("courses")
-            .orderBy("createdAt")
+
             .get()
             .addOnSuccessListener { snapshot ->
                 courses = snapshot.documents.map { doc ->

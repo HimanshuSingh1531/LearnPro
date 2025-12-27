@@ -1,9 +1,8 @@
 package com.himanshu.learnpro.data.repository
 
 
-
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.Timestamp
+//import com.google.firebase.Timestamp
 
 object PaymentRepository {
 
@@ -20,8 +19,7 @@ object PaymentRepository {
             "paymentId" to paymentId,
             "orderId" to orderId,
             "amount" to amount,
-            "status" to "SUCCESS",
-            "purchasedAt" to Timestamp.now()
+            "status" to "SUCCESS"
         )
 
         FirebaseFirestore.getInstance()

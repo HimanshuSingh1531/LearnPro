@@ -38,7 +38,13 @@ class CourseDetailViewModel(
             .document(courseId)
             .get()
             .addOnSuccessListener { doc ->
-                course = doc.toObject(Course::class.java)
+                course = Course(
+                    id = doc.id,
+                    title = doc.getString("title") ?: "",
+                    description = doc.getString("description") ?: "",
+                    price = doc.getLong("price")?.toInt() ?: 0
+                )
+
                 isLoading = false
             }
     }

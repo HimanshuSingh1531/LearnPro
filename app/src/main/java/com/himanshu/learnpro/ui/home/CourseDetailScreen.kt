@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
 import com.himanshu.learnpro.data.repository.PaymentRepository
-import com.himanshu.learnpro.payment.RazorpayManager
+import com.himanshu.learnpro.RazorpayManager
 import com.himanshu.learnpro.viewmodel.CourseDetailViewModel
 
 @SuppressLint("ContextCastToActivity")

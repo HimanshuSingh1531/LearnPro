@@ -78,6 +78,7 @@ dependencies {
     // Google Sign-In
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation(libs.androidx.ui)
+    implementation(libs.androidx.compose.runtime)
 
     // -------------------------
     // TESTING (AS IS)
@@ -91,4 +92,8 @@ dependencies {
 
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+    implementation ("com.google.firebase:firebase-storage-ktx")
+    implementation ("androidx.activity:activity-compose:1.8.2")
+
+    implementation("com.razorpay:checkout:1.6.33")
 }

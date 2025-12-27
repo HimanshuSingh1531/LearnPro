@@ -19,7 +19,8 @@ class CourseRepository {
                         id = doc.id,
                         title = doc.getString("title") ?: "",
                         description = doc.getString("description") ?: "",
-                        price = doc.getString("Price") ?: "",
+                        price = doc.getLong("price")?.toInt() ?: 0
+
 
                     )
                 }

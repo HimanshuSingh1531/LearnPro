@@ -6,25 +6,24 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.himanshu.learnpro.data.model.BottomNavItem
+import com.himanshu.learnpro.data.model.Course
 import com.himanshu.learnpro.ui.profile.ProfileScreen
 import com.himanshu.learnpro.viewmodel.ExploreViewModel
 import com.himanshu.learnpro.viewmodel.MyCoursesViewModel
 import com.himanshu.learnpro.viewmodel.ProfileViewModel
 
 @Composable
-fun HomeContainerScreen(userUid: String) {
+fun HomeContainerScreen(
+    userUid: String,
+    onCourseClick: (Course) -> Unit   // 🔥 IMPORTANT
+) {
 
     var selectedTab by remember { mutableStateOf(BottomNavItem.HOME) }
 
-    // ✅ REMEMBER VIEWMODELS (CRITICAL FIX)
+    // ✅ ViewModels (kept as you had)
     val exploreViewModel = remember { ExploreViewModel() }
     val myCoursesViewModel = remember { MyCoursesViewModel() }
     val profileViewModel = remember { ProfileViewModel() }
-
-    // 🔍 Debug (temporary – you can remove later)
-    LaunchedEffect(Unit) {
-        println("HOME CONTAINER UID = $userUid")
-    }
 
     Scaffold(
         bottomBar = {
@@ -50,7 +49,7 @@ fun HomeContainerScreen(userUid: String) {
                 BottomNavItem.EXPLORE -> {
                     ExploreScreen(
                         viewModel = exploreViewModel,
-                        onCourseClick = { /* later */ }
+                        onCourseClick = onCourseClick   // 🔥 FIX
                     )
                 }
 
@@ -58,7 +57,7 @@ fun HomeContainerScreen(userUid: String) {
                     MyCoursesScreen(
                         uid = userUid,
                         viewModel = myCoursesViewModel,
-                        onCourseClick = { /* later */ }
+                        onCourseClick = onCourseClick   // 🔥 FIX
                     )
                 }
 
@@ -108,10 +107,3 @@ fun BottomNavigationBar(
         )
     }
 }
-//@Preview(showBackground = true)
-//@Composable
-//fun HomeContainerPreview() {
-//    MaterialTheme {
-//        HomeContainerScreen()
-//    }
-//}

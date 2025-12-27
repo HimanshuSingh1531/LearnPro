@@ -1,6 +1,5 @@
 package com.himanshu.learnpro.ui.home
 
-
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,14 +9,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import  com.himanshu.learnpro.data.model.Course
-import  com.himanshu.learnpro.viewmodel.MyCoursesViewModel
+import com.himanshu.learnpro.data.model.Course
+import com.himanshu.learnpro.viewmodel.MyCoursesViewModel
 
 @Composable
 fun MyCoursesScreen(
     uid: String,
     viewModel: MyCoursesViewModel,
-    onCourseClick: (String) -> Unit
+    onCourseClick: (Course) -> Unit   // 🔥 FIXED
 ) {
     LaunchedEffect(uid) {
         viewModel.loadMyCourses(uid)
@@ -47,7 +46,7 @@ fun MyCoursesScreen(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                Text("You are not enrolled in any courses yet")
+                Text("You have not purchased any courses yet")
             }
         }
 
@@ -69,7 +68,7 @@ fun MyCoursesScreen(
                 items(viewModel.courses) { course ->
                     MyCourseCard(
                         course = course,
-                        onClick = { onCourseClick(course.id) }
+                        onClick = { onCourseClick(course) }   // 🔥 FIXED
                     )
                 }
             }
@@ -100,7 +99,7 @@ private fun MyCourseCard(
                 maxLines = 2
             )
             Text(
-                text = "Instructor: ${course.price}",
+                text = "Price: ₹${course.price}",
                 style = MaterialTheme.typography.bodySmall
             )
         }

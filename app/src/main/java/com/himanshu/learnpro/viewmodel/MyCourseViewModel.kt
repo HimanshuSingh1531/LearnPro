@@ -20,37 +20,43 @@ class MyCoursesViewModel(
     var error by mutableStateOf<String?>(null)
         private set
 
+    private val db = FirebaseFirestore.getInstance()
+
     fun loadMyCourses(uid: String) {
         isLoading = true
         error = null
 
-        FirebaseFirestore.getInstance()
-            .collection("users")
+        // 🔥 READ PURCHASES (source of truth)
+        db.collection("users")
             .document(uid)
+            .collection("purchases")
             .get()
-            .addOnSuccessListener { doc ->
-                val enrolledIds =
-                    doc.get("enrolledCourses") as? List<String> ?: emptyList()
+            .addOnSuccessListener { snapshot ->
 
-                if (enrolledIds.isEmpty()) {
+                val purchasedCourseIds = snapshot.documents.map { it.id }
+
+                if (purchasedCourseIds.isEmpty()) {
                     courses = emptyList()
                     isLoading = false
                     return@addOnSuccessListener
                 }
 
+                // Fetch all courses & filter
                 courseRepo.getAllCourses(
                     onSuccess = { allCourses ->
-                        courses = allCourses.filter { it.id in enrolledIds }
+                        courses = allCourses.filter {
+                            it.id in purchasedCourseIds
+                        }
                         isLoading = false
                     },
-                    onError = {
-                        error = it
+                    onError = { err ->
+                        error = err
                         isLoading = false
                     }
                 )
             }
-            .addOnFailureListener {
-                error = it.message
+            .addOnFailureListener { e ->
+                error = e.message ?: "Failed to load purchases"
                 isLoading = false
             }
     }

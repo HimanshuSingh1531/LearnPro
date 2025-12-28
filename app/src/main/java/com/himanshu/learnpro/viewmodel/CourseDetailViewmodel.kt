@@ -2,11 +2,9 @@ package com.himanshu.learnpro.viewmodel
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
-import com.himanshu.learnpro.data.model.Course
-import com.himanshu.learnpro.data.repository.CourseRepository
 import com.google.firebase.firestore.FirebaseFirestore
+import com.himanshu.learnpro.data.model.Course
 import com.himanshu.learnpro.data.model.Lecture
-
 
 class CourseDetailViewModel(
     private val courseId: String,
@@ -42,9 +40,11 @@ class CourseDetailViewModel(
                     id = doc.id,
                     title = doc.getString("title") ?: "",
                     description = doc.getString("description") ?: "",
-                    price = doc.getLong("price")?.toInt() ?: 0
+                    price = doc.getLong("price")?.toInt() ?: 0,
+                    category = doc.getString("category") ?: "",
+                    featured = doc.getBoolean("featured") ?: false,
+                    imageUrl = doc.getString("imageUrl") ?: ""
                 )
-
                 isLoading = false
             }
     }
@@ -77,8 +77,8 @@ class CourseDetailViewModel(
                 hasPurchased = it.exists()
             }
     }
+
     fun refreshPurchase() {
         checkPurchase()
     }
-
 }

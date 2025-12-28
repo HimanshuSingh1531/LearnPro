@@ -8,13 +8,13 @@ import com.himanshu.learnpro.data.model.Course
 class ExploreViewModel : ViewModel() {
 
     var courses by mutableStateOf<List<Course>>(emptyList())
-    private set
+        private set
 
     var isLoading by mutableStateOf(false)
-    private set
+        private set
 
     var errorMessage by mutableStateOf<String?>(null)
-    private set
+        private set
 
     fun loadCourses() {
         isLoading = true
@@ -22,17 +22,36 @@ class ExploreViewModel : ViewModel() {
 
         FirebaseFirestore.getInstance()
             .collection("courses")
-
             .get()
             .addOnSuccessListener { snapshot ->
-                courses = snapshot.documents.map { doc ->
+
+                courses = snapshot.documents.mapNotNull { doc ->
+
+                    val title = doc.getString("title") ?: return@mapNotNull null
+                    val description = doc.getString("description") ?: ""
+                    val category = doc.getString("category") ?: ""
+                    val imageUrl = doc.getString("imageUrl") ?: ""
+                    val featured = doc.getBoolean("featured") ?: false
+
+                    // 🔥 SAFE PRICE HANDLE (Int / Long / Double)
+                    val price = when (val p = doc.get("price")) {
+                        is Long -> p.toInt()
+                        is Int -> p
+                        is Double -> p.toInt()
+                        else -> 0
+                    }
+
                     Course(
-                        id = doc.id,
-                        title = doc.getString("title") ?: "",
-                        description = doc.getString("description") ?: "",
-                        price = doc.getLong("price")?.toInt() ?: 0
+                        id = doc.id,           // 🔥 document id
+                        title = title,
+                        description = description,
+                        price = price,
+                        category = category,
+                        featured = featured,
+                        imageUrl = imageUrl
                     )
                 }
+
                 isLoading = false
             }
             .addOnFailureListener { e ->

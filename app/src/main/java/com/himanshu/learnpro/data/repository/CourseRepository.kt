@@ -19,9 +19,10 @@ class CourseRepository {
                         id = doc.id,
                         title = doc.getString("title") ?: "",
                         description = doc.getString("description") ?: "",
-                        price = doc.getLong("price")?.toInt() ?: 0
-
-
+                        price = doc.getLong("price")?.toInt() ?: 0,
+                        category = TODO(),
+                        featured = TODO(),
+                        imageUrl = TODO(),
                     )
                 }
                 onSuccess(courses)
